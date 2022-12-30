@@ -11,7 +11,7 @@ export default function AddUnit() {
     React.useEffect(() => {
         axios.get('http://localhost:8000/api/units').then(res => {
             setUnits(res.data);
-        })
+        });
     }, []);
 
     function handleChange(key, value) {

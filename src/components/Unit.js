@@ -1,9 +1,12 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const URL = "http://localhost:8000/api/units";
 
 export default function Unit(props) {
+    let navigate = useNavigate();
+
     function deleteUnit(_id) {
         axios.delete((URL + "/" + _id)).then(() => window.location.reload());
     }
@@ -16,6 +19,10 @@ export default function Unit(props) {
         }
     }
 
+    function handleEdit() {
+        navigate('/EditUnit/' + props.unit._id);
+    }
+
     return(
         <div className="card my-4 mx-2">
             <div className="card-header d-flex justify-content-between">
@@ -25,7 +32,7 @@ export default function Unit(props) {
             <div className="card-body text-center">
                 <div className="mb-3 d-flex justify-content-between">
                     <button className="btn btn-danger" onClick={() => handleDelete()}>Delete</button>
-                    <button className="btn btn-primary">Edit</button>
+                    <button className="btn btn-info text-light" onClick={() => handleEdit()}>Edit</button>
                 </div>
                 <table className="table table-bordered">
                     <tbody>
