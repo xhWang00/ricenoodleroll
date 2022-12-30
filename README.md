@@ -1,3 +1,3 @@
 # Rice Noodle Roll
 
-A front end of [charsiu](https://github.com/xhWang00/charsiu/).
+The front end of [charsiu](https://github.com/xhWang00/charsiu/), a tenant manage system.
