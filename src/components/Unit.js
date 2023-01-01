@@ -25,6 +25,10 @@ export default function Unit(props) {
         navigate('/EditUnit/' + props.unit._id);
     }
 
+    function handelNewPayment() {
+        navigate('/AddPayment/' + props.unit._id + '/' + props.date.year + '/' + props.date.month);
+    }
+
     return(
         <div className="card my-4 mx-2">
             <div className="card-header d-flex justify-content-between">
@@ -54,6 +58,8 @@ export default function Unit(props) {
                 </table>
 
                 <Payment unitId={props.unit._id} payments={props.payments}/>
+
+                <button className="btn btn-success" onClick={() => {handelNewPayment()}}>New Payment</button>
 
             </div>
         </div>

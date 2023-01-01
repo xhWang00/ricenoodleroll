@@ -21,7 +21,7 @@ export default function Payment(props) {
                 <tbody>
 
                     {paymentFilterd.map( p => (
-                        <tr>
+                        <tr key={p._id}>
                             <td><button className="btn btn-danger btn-sm">🗙</button></td>
                             <td>{p.amount}</td>
                             <td>{p.comment}</td>

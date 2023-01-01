@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AddUnit from './pages/AddUnit';
 import PageNotFound from './pages/PageNotFound';
 import EditUnit from './pages/EditUnit';
+import AddPayment from './pages/AddPayment';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/Home' element={<Home />}></Route>
           <Route path='/AddUnit' element={<AddUnit />}></Route>
+          <Route path='/AddUnit' element={<AddUnit />}></Route>
+          <Route path='/AddPayment/:unitId/:year/:month' element={<AddPayment />}></Route>
           <Route path='/EditUnit/:_id' element={<EditUnit />}></Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
