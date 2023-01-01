@@ -1,10 +1,17 @@
 import React from "react";
+import axios from "axios";
 
 export default function Payment(props) {
 
     let paymentFilterd = props.payments.filter(p => {
         return p.unitId === props.unitId;
     })
+
+    function handleDeletePayment(_id) {
+        if (window.confirm("Do you really want to delet this payment?")) {
+            axios.delete(('http://localhost:8000/api/payments/' + _id)).then(() => window.location.reload());
+        }
+    }
 
     return (
         <div>
@@ -22,7 +29,7 @@ export default function Payment(props) {
 
                     {paymentFilterd.map( p => (
                         <tr key={p._id}>
-                            <td><button className="btn btn-danger btn-sm">🗙</button></td>
+                            <td><button className="btn btn-danger btn-sm" onClick={() => handleDeletePayment(p._id)}>🗙</button></td>
                             <td>{p.amount}</td>
                             <td>{p.comment}</td>
                             <td>{p.year}-{p.month + 1}-{p.day}</td>
