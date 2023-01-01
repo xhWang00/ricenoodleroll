@@ -25,7 +25,7 @@ export default function Payment(props) {
 
                     {props.payments.map( p => (
                         <tr key={p._id}>
-                            <td><button className="btn btn-danger btn-sm" onClick={() => handleDeletePayment(p._id)}>🗙</button></td>
+                            <td><button className="btn btn-danger btn-sm" onClick={() => handleDeletePayment(p._id)}>X</button></td>
                             <td>{p.amount}</td>
                             <td>{p.comment}</td>
                             <td>{p.year}-{p.month + 1}-{p.day}</td>
