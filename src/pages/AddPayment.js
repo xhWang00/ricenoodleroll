@@ -79,7 +79,7 @@ export default function AddPayment() {
                             <option value=''></option>
                             
                             {dateList.map( day => (
-                                <option value={day}>{year}-{parseInt(month) + 1}-{day}</option>
+                                <option key={day} value={day}>{year}-{parseInt(month) + 1}-{day}</option>
                             ))}
 
                         </select>

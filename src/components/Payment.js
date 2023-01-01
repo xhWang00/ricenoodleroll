@@ -3,10 +3,6 @@ import axios from "axios";
 
 export default function Payment(props) {
 
-    let paymentFilterd = props.payments.filter(p => {
-        return p.unitId === props.unitId;
-    })
-
     function handleDeletePayment(_id) {
         if (window.confirm("Do you really want to delet this payment?")) {
             axios.delete(('http://localhost:8000/api/payments/' + _id)).then(() => window.location.reload());
@@ -17,7 +13,7 @@ export default function Payment(props) {
         <div>
             
             <table className="table border">
-                <thead className="bg-dark text-light">
+                <thead className="bg-secondary text-light">
                     <tr>
                         <th>Delete</th>
                         <th>Amount</th>
@@ -27,7 +23,7 @@ export default function Payment(props) {
                 </thead>
                 <tbody>
 
-                    {paymentFilterd.map( p => (
+                    {props.payments.map( p => (
                         <tr key={p._id}>
                             <td><button className="btn btn-danger btn-sm" onClick={() => handleDeletePayment(p._id)}>🗙</button></td>
                             <td>{p.amount}</td>

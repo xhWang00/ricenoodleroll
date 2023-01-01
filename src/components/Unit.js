@@ -9,6 +9,19 @@ const URL = "http://localhost:8000/api/units";
 export default function Unit(props) {
     const navigate = useNavigate();
 
+    let paymentFiltered = props.payments.filter(p => {
+        return p.unitId === props.unit._id;
+    });
+    let depositFiltered = props.deposits.filter(d => {
+        return d.unitId === props.unit._id;
+    });
+
+    let rentSum = getRentSum(paymentFiltered);
+    let rentLeft = getRentLeftToPay(props.unit.rent, rentSum);
+    let depositSum = getDepositSum(depositFiltered);
+    let depositLeft = getRentLeftToPay( (props.unit.deposit + props.unit.remoteControlDeposit), depositSum);
+
+
     function deleteUnit(_id) {
         axios.delete((URL + "/" + _id)).then(() => window.location.reload());
     }
@@ -29,9 +42,42 @@ export default function Unit(props) {
         navigate('/AddPayment/' + props.unit._id + '/' + props.date.year + '/' + props.date.month);
     }
 
+    function getRentSum(payments) {
+        let sum = 0;
+        // eslint-disable-next-line
+        payments.map( p => {
+            if (!p.isDeposit) {
+                sum += p.amount;            
+            }
+        });
+        return sum;
+    }
+
+    function getDepositSum(deposits) {
+        let sum = 0;
+        // eslint-disable-next-line
+        deposits.map( d => {
+            if (d.isDeposit) {
+                sum += d.amount
+            }
+        });
+        return sum;
+    }
+
+    function getRentLeftToPay(rent, paied) {
+        return (rent - paied) <= 0 ? 0 : (rent - paied);
+    }
+
+    function rentStatus(rentLeft) {
+        if (rentLeft > 0) {
+            return ' bg-warning';
+        }
+        return '';
+    }
+
     return(
         <div className="card my-4 mx-2">
-            <div className="card-header d-flex justify-content-between">
+            <div className={"card-header d-flex justify-content-between" + rentStatus(rentLeft)}>
                 <b>Unit #{props.unit.unitNum}, BR/BA: {props.unit.BRBA}</b>
                 <b>{props.unit.tenant}</b>
             </div>
@@ -54,10 +100,22 @@ export default function Unit(props) {
                         <th>Move in Date: </th>
                         <td>{props.unit.moveinDate.slice(0, 10)}</td>
                     </tr>
+                    <tr>
+                        <th>Rent paid this month:</th>
+                        <td>{rentSum}</td>
+                        <th>Rent left to be paied</th>
+                        <td>{rentLeft}</td>
+                    </tr>
+                    <tr>
+                        <th>Deposit paid</th>
+                        <td>{depositSum}</td>
+                        <th>Deposit left to be paied</th>
+                        <td>{depositLeft}</td>
+                    </tr>
                     </tbody>
                 </table>
 
-                <Payment unitId={props.unit._id} payments={props.payments}/>
+                <Payment unitId={props.unit._id} payments={paymentFiltered}/>
 
                 <button className="btn btn-success" onClick={() => {handelNewPayment()}}>New Payment</button>
 

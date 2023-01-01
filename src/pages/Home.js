@@ -7,6 +7,7 @@ import Unit from "../components/Unit";
 export default function Home() {
     const [units, setUnits] = React.useState([]);
     const [payments, setPayments] = React.useState([]);
+    const [deposits, setDeposits] = React.useState([]);
     const [date, setDate] = React.useState({});
 
     function handleSetDate(selectedDate) {
@@ -43,7 +44,9 @@ export default function Home() {
         axios.get('http://localhost:8000/api/payments/byDate/' + year + "/" + month).then(res => {
             setPayments(res.data);
         });
-        // eslint-disable-next-line
+        axios.get('http://localhost:8000/api/payments/deposit/all').then(res => {
+            setDeposits(res.data);
+        })
     }, []);
 
     return (
@@ -51,7 +54,7 @@ export default function Home() {
             <Narbar handleSetDate={handleSetDate}/>
             
             {units.map(unit => (
-                <Unit key={unit._id} unit={unit} date={date} payments={payments}/>
+                <Unit key={unit._id} unit={unit} date={date} payments={payments} deposits={deposits}/>
             ))}
 
         </div>
