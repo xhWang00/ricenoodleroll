@@ -2,10 +2,12 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import Payment from "./Payment";
+
 const URL = "http://localhost:8000/api/units";
 
 export default function Unit(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     function deleteUnit(_id) {
         axios.delete((URL + "/" + _id)).then(() => window.location.reload());
@@ -50,6 +52,9 @@ export default function Unit(props) {
                     </tr>
                     </tbody>
                 </table>
+
+                <Payment unitId={props.unit._id} payments={props.payments}/>
+
             </div>
         </div>
     )

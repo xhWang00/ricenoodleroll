@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Narbar() {
+export default function Narbar(props) {
     let navigate = useNavigate();
 
     return (
@@ -12,7 +12,7 @@ export default function Narbar() {
                         <button className="btn btn-success" onClick={() => navigate('/AddUnit')}>Add a unit</button>
                     </div>
                     <div className="col-7">
-                        <input className="form-control" type="month"></input>
+                        <input className="form-control" type="month" onChange={e => props.handleSetDate(e.target.value)}></input>
                     </div>
                 </div>
             </div>
