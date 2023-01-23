@@ -51,7 +51,7 @@ export default function Home() {
 
     return (
         <div>
-            <Narbar handleSetDate={handleSetDate}/>
+            <Narbar handleSetDate={handleSetDate} date={date}/>
             
             {units.map(unit => (
                 <Unit key={unit._id} unit={unit} date={date} payments={payments} deposits={deposits}/>
